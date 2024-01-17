@@ -20,11 +20,9 @@ def pagina_inicio():
     °Criação Modelo
     °Hardware - Arduino
     °EDA - Conclusão
-
-
     '''
     st.text(text_01)       
-
+#DataPrep page
 def pagina_DataPrep():
     st.title("DataPrep")
     tab1, tab2, tab3 = st.tabs(["Agro", "Produtividade", "Arduíno"])
@@ -62,16 +60,52 @@ def pagina_DataPrep():
     # Tratando dados Arduíno
     with tab3:
         st.header("Arduíno")
-        st.write("https://static.streamlit.io/examples/owl.jpg", width=200)
+        st.write('''para a parte física de coleta de dados 
+                 via sensores de umidade, no projeto colocamos leds para indicar a taxa de umidade
+                 , no qual segundo artigos e publicações, cerca de 40% de volume 
+                 de água em solo já é considerado úmido''')
+        st.image('projeto arduino.png')
+        st.write('''Modelo Físico projeto no laboratório de Potência - IFCE
+                 ''')
+        st.image('modelo_físico.jpeg')
+        st.image('formula_Umidade.png')
+        st.text('''
+                 Detalhe que aconteceu foi como metrificar o sensor de umidade, em que 
+                 tive ajuda de professores da faculdade e o conselho de utilizar o volume de água 
+                 como meio físico medidor, detalhe que se deu por percentual ocupado a mais de água no solo
+                 obedecendo a regra de 
+                 U < 10% - Seco 
+                 20% >  U > 10% - Pouco Úmido
+                 40% >  U > 20% - Úmido
+                 U > 40% - Molhado para plantio (soja neste caso)        
+                 ''')
+        st.video('dispositivo.mp4',format="video/mp4")
 def pagina_Modelo():
     st.title("Modelo")
-    # Adicione o conteúdo da sua página inicial aqui
-    arquivo = st.file_uploader('suba seu arquivo aqui', type=['jpg','png','json','csv','pdf'])
-
+    st.write('''para a análise, primeiro entendendo que o problema é uma problema supervisionado de regressão
+             logo as métricas como a aplicação do modelo foram para otimizar essa estimação de valores baseados pelos dados
+             a aplicação da regressão logística
+            ''')
+    st.image('rl.png')
+    st.line_chart(pd.read_csv('dados_model.csv'))
 def Graf():
     st.title('Gráficos da Solução')
+    st.write('''algo que teve de análise importante foi que devido a uma alta correlação identificada
+             nos dados de faixa de temperatura dos dados Agro, foi interessante verificar o quão dispersos estão os dados dentro do modelo
+             retornando somente um erro de 0.026 em aplicar regressão logística
+            ''')
     st.image('gráficos_de_dispersão.png') #gráfico de dispersão
+    st.title('Resíduos')
+    st.write('''A análise de resíduos em gráficos é essencial 
+             para aprimorar a interpretação de dados. Ela permite
+              avaliar a adequação do modelo estatístico, identificar padrões não capturados,
+              detectar outliers, verificar suposições estatísticas e melhorar a precisão preditiva, no mais, peça ao chatgpt
+            ''')
     st.image('images.png') #imagem dos resíduos
+    st.write(''' verificando os resíduos podemos verificar a presença dos outliers ao mesmo tempo que 
+             a distribuição gaussiana cresce, ou seja quanto mais correlações(características) os dados vão tendo entre si
+             maior vai ser a taxa de outliers crescendo entre eles            
+            ''')
     
 def main():
     st.sidebar.title("Navegação")
